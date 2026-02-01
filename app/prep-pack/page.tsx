@@ -81,7 +81,7 @@ const marksPatterns = [
 const mockGeneratedPack = {
   title: "Data Structures & Algorithms - End Term Preparation Pack",
   subject: "Data Structures",
-  generatedAt: new Date(),
+  generatedAt: "2024-03-15T10:30:00Z",
   sections: [
     {
       name: "Section A: 2 Marks Questions (10 x 2 = 20)",
