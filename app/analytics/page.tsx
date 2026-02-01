@@ -281,19 +281,29 @@ export default function AnalyticsPage() {
                   <CardContent>
                     <ResponsiveContainer width="100%" height={250}>
                       <BarChart data={studyTimeData}>
-                        <CartesianGrid strokeDasharray="3 3" stroke="#374151" opacity={0.3} />
-                        <XAxis dataKey="day" fontSize={12} tickLine={false} axisLine={false} />
-                        <YAxis fontSize={12} tickLine={false} axisLine={false} />
+                        <CartesianGrid strokeDasharray="3 3" stroke="#4b5563" opacity={0.5} />
+                        <XAxis dataKey="day" fontSize={12} tickLine={false} axisLine={false} stroke="#9ca3af" />
+                        <YAxis fontSize={12} tickLine={false} axisLine={false} stroke="#9ca3af" />
                         <Tooltip
                           contentStyle={{
-                            backgroundColor: "rgba(30, 30, 40, 0.95)",
-                            borderColor: "rgba(100, 100, 120, 0.3)",
+                            backgroundColor: "#1f2937",
+                            borderColor: "#374151",
                             borderRadius: "8px",
-                            color: "#f1f5f9",
+                            color: "#f9fafb",
                           }}
+                          labelStyle={{ color: "#f9fafb" }}
+                          itemStyle={{ color: "#f9fafb" }}
                         />
-                        <Bar dataKey="hours" fill="#6366f1" radius={[4, 4, 0, 0]} name="Hours Studied" />
-                        <Bar dataKey="target" fill="#94a3b8" radius={[4, 4, 0, 0]} name="Target" />
+                        <Bar dataKey="hours" name="Hours Studied" radius={[4, 4, 0, 0]}>
+                          {studyTimeData.map((_, index) => (
+                            <Cell key={`cell-hours-${index}`} fill="#818cf8" />
+                          ))}
+                        </Bar>
+                        <Bar dataKey="target" name="Target" radius={[4, 4, 0, 0]}>
+                          {studyTimeData.map((_, index) => (
+                            <Cell key={`cell-target-${index}`} fill="#6b7280" />
+                          ))}
+                        </Bar>
                       </BarChart>
                     </ResponsiveContainer>
                   </CardContent>
@@ -318,19 +328,29 @@ export default function AnalyticsPage() {
                   <CardContent>
                     <ResponsiveContainer width="100%" height={250}>
                       <BarChart data={performanceByDifficulty} layout="vertical">
-                        <CartesianGrid strokeDasharray="3 3" stroke="#374151" opacity={0.3} />
-                        <XAxis type="number" fontSize={12} tickLine={false} axisLine={false} />
-                        <YAxis dataKey="difficulty" type="category" fontSize={12} tickLine={false} axisLine={false} />
+                        <CartesianGrid strokeDasharray="3 3" stroke="#4b5563" opacity={0.5} />
+                        <XAxis type="number" fontSize={12} tickLine={false} axisLine={false} stroke="#9ca3af" />
+                        <YAxis dataKey="difficulty" type="category" fontSize={12} tickLine={false} axisLine={false} stroke="#9ca3af" width={70} />
                         <Tooltip
                           contentStyle={{
-                            backgroundColor: "rgba(30, 30, 40, 0.95)",
-                            borderColor: "rgba(100, 100, 120, 0.3)",
+                            backgroundColor: "#1f2937",
+                            borderColor: "#374151",
                             borderRadius: "8px",
-                            color: "#f1f5f9",
+                            color: "#f9fafb",
                           }}
+                          labelStyle={{ color: "#f9fafb" }}
+                          itemStyle={{ color: "#f9fafb" }}
                         />
-                        <Bar dataKey="correct" stackId="a" fill="#22c55e" name="Correct" radius={[0, 4, 4, 0]} />
-                        <Bar dataKey="incorrect" stackId="a" fill="#ef4444" name="Incorrect" radius={[0, 4, 4, 0]} />
+                        <Bar dataKey="correct" stackId="a" name="Correct" radius={[0, 0, 0, 0]}>
+                          {performanceByDifficulty.map((_, index) => (
+                            <Cell key={`cell-correct-${index}`} fill="#4ade80" />
+                          ))}
+                        </Bar>
+                        <Bar dataKey="incorrect" stackId="a" name="Incorrect" radius={[0, 4, 4, 0]}>
+                          {performanceByDifficulty.map((_, index) => (
+                            <Cell key={`cell-incorrect-${index}`} fill="#f87171" />
+                          ))}
+                        </Bar>
                       </BarChart>
                     </ResponsiveContainer>
                   </CardContent>
