@@ -68,11 +68,16 @@ export function Navbar() {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5 }}
         className={cn(
-          "fixed top-0 left-0 right-0 z-50 border-b border-border/50 backdrop-blur-xl transition-all duration-300",
-          scrolled ? "bg-background/60" : "bg-background/80"
+          "fixed z-50 transition-all duration-500 ease-out",
+          scrolled 
+            ? "top-4 left-4 right-4 mx-auto max-w-6xl rounded-2xl border border-border/50 bg-background/70 shadow-lg shadow-black/5 backdrop-blur-xl" 
+            : "top-0 left-0 right-0 border-b border-border/50 bg-background/80 backdrop-blur-xl"
         )}
       >
-        <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+        <nav className={cn(
+          "mx-auto flex items-center justify-between transition-all duration-300",
+          scrolled ? "h-14 px-6" : "h-16 max-w-7xl px-4 sm:px-6 lg:px-8"
+        )}>
           <Link href="/" className="flex items-center gap-2">
             <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary">
               <BookOpen className="h-5 w-5 text-primary-foreground" />
@@ -142,11 +147,16 @@ export function Navbar() {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.3 }}
         className={cn(
-          "fixed top-0 left-0 right-0 z-50 border-b border-border/50 backdrop-blur-xl transition-all duration-300",
-          scrolled ? "bg-background/60" : "bg-background/80"
+          "fixed z-50 transition-all duration-500 ease-out",
+          scrolled 
+            ? "top-4 left-4 right-4 mx-auto max-w-6xl rounded-2xl border border-border/50 bg-background/70 shadow-lg shadow-black/5 backdrop-blur-xl" 
+            : "top-0 left-0 right-0 border-b border-border/50 bg-background/80 backdrop-blur-xl"
         )}
       >
-        <nav className="flex h-16 items-center justify-between px-4 lg:px-6">
+        <nav className={cn(
+          "flex items-center justify-between transition-all duration-300",
+          scrolled ? "h-14 px-6" : "h-16 px-4 lg:px-6"
+        )}>
           <Link href="/dashboard" className="flex items-center gap-2">
             <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary">
               <BookOpen className="h-5 w-5 text-primary-foreground" />
