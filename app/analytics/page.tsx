@@ -281,18 +281,29 @@ export default function AnalyticsPage() {
                   <CardContent>
                     <ResponsiveContainer width="100%" height={250}>
                       <BarChart data={studyTimeData}>
-                        <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
-                        <XAxis dataKey="day" className="text-xs" />
-                        <YAxis className="text-xs" />
+                        <CartesianGrid strokeDasharray="3 3" stroke="#4b5563" opacity={0.5} />
+                        <XAxis dataKey="day" fontSize={12} tickLine={false} axisLine={false} stroke="#9ca3af" />
+                        <YAxis fontSize={12} tickLine={false} axisLine={false} stroke="#9ca3af" />
                         <Tooltip
                           contentStyle={{
-                            backgroundColor: "hsl(var(--card))",
-                            borderColor: "hsl(var(--border))",
-                            borderRadius: "var(--radius)",
+                            backgroundColor: "#1f2937",
+                            borderColor: "#374151",
+                            borderRadius: "8px",
+                            color: "#f9fafb",
                           }}
+                          labelStyle={{ color: "#f9fafb" }}
+                          itemStyle={{ color: "#f9fafb" }}
                         />
-                        <Bar dataKey="hours" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
-                        <Bar dataKey="target" fill="hsl(var(--muted))" radius={[4, 4, 0, 0]} />
+                        <Bar dataKey="hours" name="Hours Studied" radius={[4, 4, 0, 0]}>
+                          {studyTimeData.map((_, index) => (
+                            <Cell key={`cell-hours-${index}`} fill="#818cf8" />
+                          ))}
+                        </Bar>
+                        <Bar dataKey="target" name="Target" radius={[4, 4, 0, 0]}>
+                          {studyTimeData.map((_, index) => (
+                            <Cell key={`cell-target-${index}`} fill="#6b7280" />
+                          ))}
+                        </Bar>
                       </BarChart>
                     </ResponsiveContainer>
                   </CardContent>
@@ -317,18 +328,29 @@ export default function AnalyticsPage() {
                   <CardContent>
                     <ResponsiveContainer width="100%" height={250}>
                       <BarChart data={performanceByDifficulty} layout="vertical">
-                        <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
-                        <XAxis type="number" className="text-xs" />
-                        <YAxis dataKey="difficulty" type="category" className="text-xs" />
+                        <CartesianGrid strokeDasharray="3 3" stroke="#4b5563" opacity={0.5} />
+                        <XAxis type="number" fontSize={12} tickLine={false} axisLine={false} stroke="#9ca3af" />
+                        <YAxis dataKey="difficulty" type="category" fontSize={12} tickLine={false} axisLine={false} stroke="#9ca3af" width={70} />
                         <Tooltip
                           contentStyle={{
-                            backgroundColor: "hsl(var(--card))",
-                            borderColor: "hsl(var(--border))",
-                            borderRadius: "var(--radius)",
+                            backgroundColor: "#1f2937",
+                            borderColor: "#374151",
+                            borderRadius: "8px",
+                            color: "#f9fafb",
                           }}
+                          labelStyle={{ color: "#f9fafb" }}
+                          itemStyle={{ color: "#f9fafb" }}
                         />
-                        <Bar dataKey="correct" stackId="a" fill="hsl(var(--success))" />
-                        <Bar dataKey="incorrect" stackId="a" fill="hsl(var(--destructive))" />
+                        <Bar dataKey="correct" stackId="a" name="Correct" radius={[0, 0, 0, 0]}>
+                          {performanceByDifficulty.map((_, index) => (
+                            <Cell key={`cell-correct-${index}`} fill="#4ade80" />
+                          ))}
+                        </Bar>
+                        <Bar dataKey="incorrect" stackId="a" name="Incorrect" radius={[0, 4, 4, 0]}>
+                          {performanceByDifficulty.map((_, index) => (
+                            <Cell key={`cell-incorrect-${index}`} fill="#f87171" />
+                          ))}
+                        </Bar>
                       </BarChart>
                     </ResponsiveContainer>
                   </CardContent>
@@ -561,14 +583,15 @@ export default function AnalyticsPage() {
                 <CardContent>
                   <ResponsiveContainer width="100%" height={350}>
                     <AreaChart data={monthlyTrend}>
-                      <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
-                      <XAxis dataKey="month" className="text-xs" />
-                      <YAxis className="text-xs" />
+                      <CartesianGrid strokeDasharray="3 3" stroke="#374151" opacity={0.3} />
+                      <XAxis dataKey="month" fontSize={12} tickLine={false} axisLine={false} />
+                      <YAxis fontSize={12} tickLine={false} axisLine={false} />
                       <Tooltip
                         contentStyle={{
-                          backgroundColor: "hsl(var(--card))",
-                          borderColor: "hsl(var(--border))",
-                          borderRadius: "var(--radius)",
+                          backgroundColor: "rgba(30, 30, 40, 0.95)",
+                          borderColor: "rgba(100, 100, 120, 0.3)",
+                          borderRadius: "8px",
+                          color: "#f1f5f9",
                         }}
                       />
                       <Legend />
@@ -576,16 +599,16 @@ export default function AnalyticsPage() {
                         type="monotone"
                         dataKey="studyHours"
                         name="Study Hours"
-                        stroke="hsl(var(--primary))"
-                        fill="hsl(var(--primary))"
+                        stroke="#6366f1"
+                        fill="#6366f1"
                         fillOpacity={0.2}
                       />
                       <Area
                         type="monotone"
                         dataKey="accuracy"
                         name="Accuracy %"
-                        stroke="hsl(var(--accent))"
-                        fill="hsl(var(--accent))"
+                        stroke="#22c55e"
+                        fill="#22c55e"
                         fillOpacity={0.2}
                       />
                     </AreaChart>
@@ -609,27 +632,28 @@ export default function AnalyticsPage() {
                 <CardContent>
                   <ResponsiveContainer width="100%" height={250}>
                     <BarChart data={weeklyProgressData}>
-                      <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
-                      <XAxis dataKey="week" className="text-xs" />
-                      <YAxis className="text-xs" />
+                      <CartesianGrid strokeDasharray="3 3" stroke="#374151" opacity={0.3} />
+                      <XAxis dataKey="week" fontSize={12} tickLine={false} axisLine={false} />
+                      <YAxis fontSize={12} tickLine={false} axisLine={false} />
                       <Tooltip
                         contentStyle={{
-                          backgroundColor: "hsl(var(--card))",
-                          borderColor: "hsl(var(--border))",
-                          borderRadius: "var(--radius)",
+                          backgroundColor: "rgba(30, 30, 40, 0.95)",
+                          borderColor: "rgba(100, 100, 120, 0.3)",
+                          borderRadius: "8px",
+                          color: "#f1f5f9",
                         }}
                       />
                       <Legend />
                       <Bar
                         dataKey="questions"
                         name="Questions"
-                        fill="hsl(var(--primary))"
+                        fill="#6366f1"
                         radius={[4, 4, 0, 0]}
                       />
                       <Bar
                         dataKey="accuracy"
                         name="Accuracy %"
-                        fill="hsl(var(--accent))"
+                        fill="#22c55e"
                         radius={[4, 4, 0, 0]}
                       />
                     </BarChart>
