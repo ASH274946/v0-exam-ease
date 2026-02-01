@@ -1,0 +1,150 @@
+// Prisma schema for ExamEase - SQLite database
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// Anonymous user session tracking
+model UserSession {
+  id         String   @id @default(cuid())
+  createdAt  DateTime @default(now())
+  lastActive DateTime @default(now())
+  
+  // Relations
+  documents     Document[]
+  questions     Question[]
+  prepPacks     PrepPack[]
+  studyPlans    StudyPlan[]
+  focusSessions FocusSession[]
+}
+
+// Uploaded documents
+model Document {
+  id            String   @id @default(cuid())
+  filename      String
+  originalName  String
+  filepath      String
+  type          String   // pdf, docx, pptx, txt, image
+  mimeType      String
+  size          Int      // bytes
+  extractedText String?  // Processed text content
+  status        String   @default("pending") // pending, processing, completed, failed
+  errorMessage  String?
+  uploadedAt    DateTime @default(now())
+  processedAt   DateTime?
+  
+  // Relations
+  sessionId String
+  session   UserSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  questions Question[]
+  
+  @@index([sessionId])
+}
+
+// Extracted questions from documents
+model Question {
+  id         String   @id @default(cuid())
+  text       String
+  answer     String?
+  marks      Int?
+  difficulty String   @default("medium") // easy, medium, hard
+  type       String   @default("short") // mcq, short, long, numerical
+  topic      String?
+  unit       String?
+  tags       String?  // JSON array stored as string
+  createdAt  DateTime @default(now())
+  
+  // Relations
+  sessionId    String
+  session      UserSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  sourceDocId  String?
+  sourceDoc    Document?   @relation(fields: [sourceDocId], references: [id], onDelete: SetNull)
+  
+  @@index([sessionId])
+  @@index([sourceDocId])
+  @@index([difficulty])
+  @@index([topic])
+}
+
+// Generated preparation packs
+model PrepPack {
+  id          String   @id @default(cuid())
+  title       String
+  subject     String
+  description String?
+  content     String   // JSON content structure
+  config      String   // JSON config (pattern, marks, difficulty)
+  pdfPath     String?
+  totalMarks  Int      @default(100)
+  status      String   @default("draft") // draft, generated, exported
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  // Relations
+  sessionId String
+  session   UserSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  
+  @@index([sessionId])
+}
+
+// Study plans and schedules
+model StudyPlan {
+  id            String   @id @default(cuid())
+  title         String
+  subject       String?
+  examDate      DateTime?
+  dailyHours    Float    @default(2)
+  schedule      String   // JSON schedule data
+  topics        String   // JSON array of topics
+  progress      Float    @default(0) // 0-100 percentage
+  status        String   @default("active") // active, paused, completed
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  
+  // Relations
+  sessionId String
+  session   UserSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  
+  @@index([sessionId])
+}
+
+// Focus/Pomodoro session tracking
+model FocusSession {
+  id          String   @id @default(cuid())
+  type        String   @default("focus") // focus, break
+  duration    Int      // seconds
+  targetTime  Int      // target duration in seconds
+  startTime   DateTime
+  endTime     DateTime?
+  completed   Boolean  @default(false)
+  taskName    String?
+  notes       String?
+  breaks      Int      @default(0)
+  
+  // Relations
+  sessionId String
+  session   UserSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  
+  @@index([sessionId])
+  @@index([startTime])
+}
+
+// Analytics data (aggregated stats)
+model AnalyticsSnapshot {
+  id              String   @id @default(cuid())
+  sessionId       String
+  date            DateTime @default(now())
+  totalStudyTime  Int      @default(0) // minutes
+  questionsAdded  Int      @default(0)
+  documentsUploaded Int    @default(0)
+  prepPacksCreated Int     @default(0)
+  topicsCompleted Int      @default(0)
+  
+  @@unique([sessionId, date])
+  @@index([sessionId])
+}
