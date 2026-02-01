@@ -14,7 +14,7 @@ Any changes you make to your deployed app will be automatically pushed to this r
 
 Your project is live at:
 
-**[https://vercel.com/aswin-kumars-projects-4467e196/v0-exam-ease-web-application](https://v0-examease.vercel.app/)**
+**[https://v0-examease.vercel.app/](https://v0-examease.vercel.app/)**
 
 ## Build your app
 
