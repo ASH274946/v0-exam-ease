@@ -57,6 +57,17 @@ export interface FocusSession {
   type: "work" | "break"
 }
 
+export interface User {
+  firstName: string
+  lastName: string
+  email: string
+  studentEmail?: string
+  avatar?: string
+  institution?: string
+  department?: string
+  studyDuration?: number
+}
+
 export interface UserProgress {
   xp: number
   level: number
@@ -89,6 +100,10 @@ interface AppState {
   // Focus Sessions
   sessions: FocusSession[]
   addSession: (session: Omit<FocusSession, "id">) => void
+  
+  // User Data
+  user: User
+  updateUser: (updates: Partial<User>) => void
   
   // User Progress
   progress: UserProgress
@@ -586,6 +601,20 @@ export const useAppStore = create<AppState>()(
       addSession: (session) =>
         set((state) => ({
           sessions: [...state.sessions, { ...session, id: generateId() }],
+        })),
+      
+      user: {
+        firstName: "Alex",
+        lastName: "Johnson",
+        email: "alex.johnson@personal.com",
+        studentEmail: "alex.j@university.edu",
+        institution: "State Engineering University",
+        department: "Computer Science",
+        studyDuration: 25,
+      },
+      updateUser: (updates) =>
+        set((state) => ({
+          user: { ...state.user, ...updates },
         })),
       
       // User Progress

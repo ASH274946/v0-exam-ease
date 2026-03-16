@@ -31,10 +31,7 @@ export function Footer() {
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-5">
           {/* Brand */}
           <div className="lg:col-span-2">
-            <Link href="/" className="flex items-center gap-2">
-              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary">
-                <BookOpen className="h-5 w-5 text-primary-foreground" />
-              </div>
+            <Link href="/" className="flex items-center">
               <span className="text-xl font-bold">ExamEase</span>
             </Link>
             <p className="mt-4 max-w-xs text-sm text-muted-foreground">

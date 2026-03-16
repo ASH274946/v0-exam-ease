@@ -13,7 +13,6 @@ import {
   Target,
   Timer,
   BarChart3,
-  User,
   Settings,
   Package,
   X,
@@ -52,10 +51,10 @@ export function Navbar() {
     setMounted(true)
     
     const handleScroll = () => {
-      setScrolled(window.scrollY > 10)
+      setScrolled(window.scrollY > 20)
     }
     
-    window.addEventListener("scroll", handleScroll)
+    window.addEventListener("scroll", handleScroll, { passive: true })
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
@@ -68,20 +67,17 @@ export function Navbar() {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5 }}
         className={cn(
-          "fixed z-50 transition-all duration-500 ease-out",
+          "fixed z-50 transition-all duration-700 cubic-bezier(0.4, 0, 0.2, 1)",
           scrolled 
-            ? "top-4 left-4 right-4 mx-auto max-w-6xl rounded-2xl border border-border/50 bg-background/70 shadow-lg shadow-black/5 backdrop-blur-xl" 
-            : "top-0 left-0 right-0 border-b border-border/50 bg-background/80 backdrop-blur-xl"
+            ? "top-6 left-6 right-6 mx-auto max-w-6xl rounded-2xl border border-border/40 bg-background/40 shadow-xl shadow-black/10 backdrop-blur-md" 
+            : "top-0 left-0 right-0 border-b border-border/10 bg-background/60 backdrop-blur-sm"
         )}
       >
         <nav className={cn(
-          "mx-auto flex items-center justify-between transition-all duration-300",
+          "mx-auto flex items-center justify-between transition-all duration-500",
           scrolled ? "h-14 px-6" : "h-16 max-w-7xl px-4 sm:px-6 lg:px-8"
         )}>
-          <Link href="/" className="flex items-center gap-2">
-            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary">
-              <BookOpen className="h-5 w-5 text-primary-foreground" />
-            </div>
+          <Link href="/" className="flex items-center">
             <span className="text-xl font-bold tracking-tight">ExamEase</span>
           </Link>
 
@@ -145,22 +141,19 @@ export function Navbar() {
       <motion.header
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.3 }}
+        transition={{ duration: 0.4 }}
         className={cn(
-          "fixed z-50 transition-all duration-500 ease-out",
+          "fixed z-50 transition-all duration-700 cubic-bezier(0.4, 0, 0.2, 1)",
           scrolled 
-            ? "top-4 left-4 right-4 mx-auto max-w-6xl rounded-2xl border border-border/50 bg-background/70 shadow-lg shadow-black/5 backdrop-blur-xl" 
-            : "top-0 left-0 right-0 border-b border-border/50 bg-background/80 backdrop-blur-xl"
+            ? "top-6 left-6 right-6 mx-auto max-w-6xl rounded-2xl border border-border/40 bg-background/40 shadow-xl shadow-black/10 backdrop-blur-md" 
+            : "top-0 left-0 right-0 border-b border-border/10 bg-background/60 backdrop-blur-sm"
         )}
       >
         <nav className={cn(
-          "flex items-center justify-between transition-all duration-300",
+          "flex items-center justify-between transition-all duration-500",
           scrolled ? "h-14 px-6" : "h-16 px-4 lg:px-6"
         )}>
-          <Link href="/dashboard" className="flex items-center gap-2">
-            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary">
-              <BookOpen className="h-5 w-5 text-primary-foreground" />
-            </div>
+          <Link href="/dashboard" className="flex items-center">
             <span className="text-xl font-bold tracking-tight">ExamEase</span>
           </Link>
 
@@ -218,13 +211,7 @@ export function Navbar() {
                 <DropdownMenuItem asChild>
                   <Link href="/settings" className="flex items-center gap-3 cursor-pointer">
                     <Settings className="h-4 w-4" />
-                    Settings
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link href="/profile" className="flex items-center gap-3 cursor-pointer">
-                    <User className="h-4 w-4" />
-                    Profile
+                    Account Settings
                   </Link>
                 </DropdownMenuItem>
               </DropdownMenuContent>
