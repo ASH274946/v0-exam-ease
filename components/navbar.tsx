@@ -123,7 +123,7 @@ export function Navbar() {
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
                   <Link href="/dashboard" className="flex items-center gap-2 cursor-pointer font-medium text-primary">
-                    Go to Dashboard
+                    Login
                   </Link>
                 </DropdownMenuItem>
               </DropdownMenuContent>

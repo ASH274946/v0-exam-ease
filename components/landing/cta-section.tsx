@@ -61,25 +61,14 @@ export function CTASection() {
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: 0.5 }}
-              className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row"
+              className="mt-8 flex justify-center"
             >
               <Link href="/dashboard">
                 <Button
                   size="lg"
-                  variant="secondary"
-                  className="gap-2 rounded-full bg-white px-8 text-primary hover:bg-white/90"
+                  className="gap-2 rounded-full bg-teal-950 px-8 text-white hover:bg-teal-900 border-none"
                 >
-                  Go to Dashboard
-                  <ArrowRight className="h-4 w-4" />
-                </Button>
-              </Link>
-              <Link href="/settings">
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="gap-2 rounded-full border-white/30 bg-transparent px-8 text-white hover:bg-white/10"
-                >
-                  Settings
+                  Login
                 </Button>
               </Link>
             </motion.div>

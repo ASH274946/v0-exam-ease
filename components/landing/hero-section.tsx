@@ -1,6 +1,6 @@
 "use client"
 
-import { motion } from "framer-motion"
+import { motion, type Variants } from "framer-motion"
 import Link from "next/link"
 import {
   ArrowRight,
@@ -8,11 +8,10 @@ import {
   FileText,
   Brain,
   Sparkles,
-  Play,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
-const floatingVariants = {
+const floatingVariants: Variants = {
   initial: { y: 0 },
   animate: {
     y: [-10, 10, -10],
@@ -24,7 +23,7 @@ const floatingVariants = {
   },
 }
 
-const staggerContainer = {
+const staggerContainer: Variants = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
@@ -34,7 +33,7 @@ const staggerContainer = {
   },
 }
 
-const fadeInUp = {
+const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 30 },
   show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
 }
@@ -54,7 +53,7 @@ export function HeroSection() {
             <motion.div variants={fadeInUp} className="mb-6">
               <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-sm font-medium text-primary">
                 <Sparkles className="h-4 w-4" />
-                Smart Study Companion for Engineers
+                Smart Study Companion for Students
               </span>
             </motion.div>
 
@@ -84,18 +83,11 @@ export function HeroSection() {
             >
               <Link href="/dashboard">
                 <Button size="lg" className="gap-2 rounded-full px-8">
-                  Go to Dashboard
+                  Login
                   <ArrowRight className="h-4 w-4" />
                 </Button>
               </Link>
-              <Button
-                variant="outline"
-                size="lg"
-                className="gap-2 rounded-full px-8 bg-transparent"
-              >
-                <Play className="h-4 w-4" />
-                Watch Demo
-              </Button>
+
             </motion.div>
 
             <motion.div
@@ -127,12 +119,42 @@ export function HeroSection() {
             className="relative hidden lg:block"
           >
             <div className="relative h-[500px]">
-              {/* Main Card */}
+              {/* OS Notes.pdf - z-0 (bottommost) */}
               <motion.div
                 variants={floatingVariants}
                 initial="initial"
                 animate="animate"
-                className="absolute top-1/2 left-1/2 w-80 -translate-x-1/2 -translate-y-1/2 rounded-2xl border border-border bg-card p-6 shadow-2xl"
+                transition={{
+                  ...(floatingVariants.animate as any).transition,
+                  delay: 0.5,
+                }}
+                className="absolute top-[2.5%] left-[-5%] w-48 z-0 shadow-md rounded-xl border border-border bg-card p-4"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-destructive/10">
+                    <FileText className="h-4 w-4 text-destructive" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium">OS Notes.pdf</p>
+                    <p className="text-xs text-muted-foreground">Processing...</p>
+                  </div>
+                </div>
+                <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-muted">
+                  <motion.div
+                    className="h-full bg-primary"
+                    initial={{ width: "0%" }}
+                    animate={{ width: "75%" }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                  />
+                </div>
+              </motion.div>
+
+              {/* Question Bank - z-10 (middle layer) */}
+              <motion.div
+                variants={floatingVariants}
+                initial="initial"
+                animate="animate"
+                className="absolute top-[18%] left-[15%] w-80 z-10 shadow-2xl rounded-2xl border border-border bg-card p-6"
               >
                 <div className="mb-4 flex items-center gap-3">
                   <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
@@ -173,40 +195,16 @@ export function HeroSection() {
                 </div>
               </motion.div>
 
-              {/* Document Card */}
+              {/* Study Plan Ready - z-20 (topmost) */}
               <motion.div
                 variants={floatingVariants}
                 initial="initial"
                 animate="animate"
-                style={{ animationDelay: "0.5s" }}
-                className="absolute top-8 left-0 w-48 rounded-xl border border-border bg-card p-4 shadow-lg"
-              >
-                <div className="flex items-center gap-3">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-destructive/10">
-                    <FileText className="h-4 w-4 text-destructive" />
-                  </div>
-                  <div>
-                    <p className="text-sm font-medium">OS Notes.pdf</p>
-                    <p className="text-xs text-muted-foreground">Processing...</p>
-                  </div>
-                </div>
-                <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-muted">
-                  <motion.div
-                    className="h-full bg-primary"
-                    initial={{ width: "0%" }}
-                    animate={{ width: "75%" }}
-                    transition={{ duration: 2, repeat: Infinity }}
-                  />
-                </div>
-              </motion.div>
-
-              {/* Study Plan Card */}
-              <motion.div
-                variants={floatingVariants}
-                initial="initial"
-                animate="animate"
-                style={{ animationDelay: "1s" }}
-                className="absolute right-0 bottom-12 w-56 rounded-xl border border-border bg-card p-4 shadow-lg"
+                transition={{
+                  ...(floatingVariants.animate as any).transition,
+                  delay: 1,
+                }}
+                className="absolute top-[68%] left-[55%] w-56 z-20 shadow-xl rounded-xl border border-border bg-card p-4"
               >
                 <div className="flex items-center gap-3">
                   <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent/10">
