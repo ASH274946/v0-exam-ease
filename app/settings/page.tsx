@@ -61,6 +61,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
+import { useRouter } from "next/navigation"
 import { useAppStore } from "@/lib/store"
 
 const achievements = [
@@ -128,7 +129,13 @@ const stats = [
 ]
 
 export default function SettingsPage() {
+  const router = useRouter()
   const { user, updateUser } = useAppStore()
+
+  const handleLogout = () => {
+    localStorage.removeItem("examease-storage")
+    router.push("/")
+  }
   const { theme, resolvedTheme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
   const [isEditing, setIsEditing] = useState(false)
@@ -802,13 +809,34 @@ export default function SettingsPage() {
                           </p>
                         </div>
                       </div>
-                      <Button 
-                        variant="destructive" 
-                        size="sm"
-                        className="transition-all duration-200 hover:bg-[#1a0000] hover:text-destructive border border-transparent hover:border-destructive"
-                      >
-                        Logout
-                      </Button>
+                      <AlertDialog>
+                        <AlertDialogTrigger asChild>
+                          <Button 
+                            variant="destructive" 
+                            size="sm"
+                            className="transition-all duration-200 border border-transparent hover:bg-transparent hover:text-destructive hover:border-destructive"
+                          >
+                            Logout
+                          </Button>
+                        </AlertDialogTrigger>
+                        <AlertDialogContent>
+                          <AlertDialogHeader>
+                            <AlertDialogTitle>Logout</AlertDialogTitle>
+                            <AlertDialogDescription>
+                              Are you sure you want to logout of ExamEase?
+                            </AlertDialogDescription>
+                          </AlertDialogHeader>
+                          <AlertDialogFooter>
+                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                            <AlertDialogAction 
+                              className="bg-destructive text-destructive-foreground transition-all duration-200 border border-transparent hover:bg-transparent hover:text-destructive hover:border-destructive"
+                              onClick={handleLogout}
+                            >
+                              Logout
+                            </AlertDialogAction>
+                          </AlertDialogFooter>
+                        </AlertDialogContent>
+                      </AlertDialog>
                     </div>
                   </CardContent>
                 </Card>

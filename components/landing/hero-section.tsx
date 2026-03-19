@@ -82,7 +82,7 @@ export function HeroSection() {
               className="mt-10 flex flex-col items-center gap-4 sm:flex-row lg:justify-start"
             >
               <Link href="/dashboard">
-                <Button size="lg" className="gap-2 rounded-full px-8">
+                <Button size="lg" className="gap-2 rounded-full px-8 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 transition-all duration-300">
                   Login
                   <ArrowRight className="h-4 w-4" />
                 </Button>
