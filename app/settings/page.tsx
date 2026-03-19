@@ -752,7 +752,7 @@ export default function SettingsPage() {
 
                     <Separator />
 
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-center justify-between transition-all duration-200 p-3 rounded-lg [&:has(button:hover)]:outline [&:has(button:hover)]:outline-1 [&:has(button:hover)]:outline-destructive">
                       <div className="flex items-center gap-3">
                         <Trash2 className="h-5 w-5 text-destructive" />
                         <div>
@@ -764,7 +764,11 @@ export default function SettingsPage() {
                       </div>
                       <AlertDialog>
                         <AlertDialogTrigger asChild>
-                          <Button variant="destructive" size="sm">
+                          <Button 
+                            variant="destructive" 
+                            size="sm" 
+                            className="transition-all duration-200 hover:bg-[#1a0000] hover:text-destructive border border-transparent hover:border-destructive"
+                          >
                             Delete
                           </Button>
                         </AlertDialogTrigger>
@@ -784,6 +788,27 @@ export default function SettingsPage() {
                           </AlertDialogFooter>
                         </AlertDialogContent>
                       </AlertDialog>
+                    </div>
+
+                    <Separator />
+
+                    <div className="flex items-center justify-between transition-all duration-200 p-3 rounded-lg [&:has(button:hover)]:outline [&:has(button:hover)]:outline-1 [&:has(button:hover)]:outline-destructive">
+                      <div className="flex items-center gap-3">
+                        <LogOut className="h-5 w-5 text-destructive" />
+                        <div>
+                          <p className="font-medium text-destructive">Logout</p>
+                          <p className="text-sm text-muted-foreground">
+                            Logout of ExamEase
+                          </p>
+                        </div>
+                      </div>
+                      <Button 
+                        variant="destructive" 
+                        size="sm"
+                        className="transition-all duration-200 hover:bg-[#1a0000] hover:text-destructive border border-transparent hover:border-destructive"
+                      >
+                        Logout
+                      </Button>
                     </div>
                   </CardContent>
                 </Card>
